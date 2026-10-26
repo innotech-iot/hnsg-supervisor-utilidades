@@ -2,6 +2,8 @@
 
 ## Correção da execução GitHub Actions — 26/10/2026
 
+- **Validação final aprovada no GitHub**, commit `0db0a83`, execução 40328229784: unit Python 3.11 e 3.13 com 145 aprovados/nove skips opcionais cada; PostgreSQL com 151 testes, zero falhas, erros ou skips, cleanup confirmado. https://github.com/innotech-iot/hnsg-supervisor-utilidades/actions/runs/40328229784
+
 - Jobs unit 3.11/3.13 aprovados na segunda execução. Compatibilidade com Node 24 do contêiner resolvida usando declaração padrão de ES modules e retirando opção experimental dos testes. Sem dependência de npm/build na aplicação. Validação PostgreSQL do commit final acompanhada pelo GitHub Actions.
 
 - Execução inicial 40322397631: seis testes falharam por Node incompatível antes do setup-node; job PostgreSQL não pôde sanitizar JUnit criado como root. Artefato PostgreSQL confirmou 145 testes, zero falhas/erros e três skips por ausência de Node.

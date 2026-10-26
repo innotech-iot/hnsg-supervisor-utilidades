@@ -2,6 +2,8 @@
 
 ## Diagnóstico do primeiro pipeline GitHub — 26/10/2026
 
+- **Resultado final confirmado:** https://github.com/innotech-iot/hnsg-supervisor-utilidades/actions/runs/40328229784, commit `0db0a83`. Todos os três jobs aprovados. Python 3.11: **145 passed, 9 skipped, 1 warning em 30.12 s**; Python 3.13: **145 passed, 9 skipped, 1 warning em 32.80 s**. Nove skips correspondem aos testes PostgreSQL opt-in, executados no job dedicado. Job PostgreSQL: **151 testes, zero falhas/erros/skips**, compose exit 0, cleanup true, passed true. Nenhum banco operacional, porta publicada ou CLP conectado. Confirmação obtida pelos logs e status dos jobs; não por inferência dos testes locais.
+
 - Segunda execução https://github.com/innotech-iot/hnsg-supervisor-utilidades/actions/runs/40327671906: jobs unit Python 3.11 e 3.13 aprovados. PostgreSQL interrompido no build porque o Node 24.22.1 do Alpine não aceita mais `--experimental-default-type`. Declarado `type: module` em static/package.json e removida a opção experimental dos testes; nenhum npm/build foi adicionado ao aplicativo. Regressores locais de frontend/contas/runner após isso: **20 passed, 1 warning em 15.88 s**; importação direta dos scripts .mjs sem flags e compileall aprovados.
 
 - Logs da execução https://github.com/innotech-iot/hnsg-supervisor-utilidades/actions/runs/40322397631 consultados. Python 3.11: seis falhas JS por `node: bad option: --experimental-default-type=module`, 139 aprovados/nove skips. Setup Node ocorria depois de pytest. Python 3.13 cancelado pela matriz após a falha de 3.11.
