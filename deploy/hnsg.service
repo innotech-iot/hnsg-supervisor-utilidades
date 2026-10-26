@@ -1,0 +1,38 @@
+[Unit]
+Description=HNSG - Supervisao local de UTAs (somente leitura industrial)
+Wants=network-online.target
+After=network-online.target postgresql.service
+RequiresMountsFor=/mnt/hnsg-ssd
+StartLimitIntervalSec=300
+StartLimitBurst=5
+
+[Service]
+Type=simple
+User=hnsg
+Group=hnsg
+WorkingDirectory=/opt/hnsg-supervisorio
+EnvironmentFile=/etc/hnsg/hnsg.env
+Environment=PYTHONDONTWRITEBYTECODE=1
+Environment=PYTHONUNBUFFERED=1
+ExecStartPre=/usr/bin/mountpoint -q /mnt/hnsg-ssd
+ExecStart=/opt/hnsg-supervisorio/.venv/bin/python -m uvicorn app.main:app --host 127.0.0.1 --port 8000 --workers 1
+Restart=on-failure
+RestartSec=10
+TimeoutStopSec=30
+UMask=0077
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=strict
+ProtectHome=true
+ReadWritePaths=/mnt/hnsg-ssd/hnsg-runtime
+RestrictSUIDSGID=true
+ProtectKernelTunables=true
+ProtectKernelModules=true
+ProtectControlGroups=true
+# Limites iniciais de bancada; ajuste apos ensaio na Pi 4 GB.
+MemoryHigh=900M
+MemoryMax=1400M
+TasksMax=128
+
+[Install]
+WantedBy=multi-user.target

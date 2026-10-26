@@ -1,0 +1,24 @@
+{
+  "mode": "http-browser",
+  "checks": [
+    "Login, 14 UTAs e duas centrais",
+    "CAG/CAQ desconhecidas, dois gráficos e navegação expandida circular",
+    "Troca de UTA preserva expansão; quatro gráficos",
+    "Pausa e retomada apenas da visualização",
+    "Gráfico ampliado com navegação entre UTAs",
+    "Comando DEMO em duas etapas, destino e confirmação",
+    "Registro de manutenção pela interface",
+    "Importação e ativação de mapa fictício no CLP 3 sem escrita",
+    "12 rotas adicionais sem erro de renderização",
+    "Três CLPs e cadastro da CAQ sem perfil de ventilação",
+    "Diagnóstico consultivo na interface",
+    "Assistente histórico: período explícito, estatísticas UTA e CAQ sem valores inventados",
+    "Layout de 390 px sem transbordamento horizontal",
+    "CAQ no celular sem transbordamento horizontal",
+    "Histórico misto: agregado antigo e snapshots recentes no mesmo gráfico"
+  ],
+  "javascript_errors": [],
+  "native_fullscreen_validated": false,
+  "tls_validated": false,
+  "notice": "Ensaios em demo; hardware real não foi exercitado."
+}

@@ -1,0 +1,20 @@
+[Unit]
+Description=Backup HNSG em armazenamento independente
+After=postgresql.service network-online.target
+RequiresMountsFor=/mnt/hnsg-ssd /mnt/hnsg-backup
+
+[Service]
+Type=oneshot
+User=hnsg
+Group=hnsg
+WorkingDirectory=/opt/hnsg-supervisorio
+EnvironmentFile=/etc/hnsg/hnsg.env
+Environment=PYTHONDONTWRITEBYTECODE=1
+ExecStartPre=/usr/bin/mountpoint -q /mnt/hnsg-backup
+ExecStart=/opt/hnsg-supervisorio/.venv/bin/python scripts/backup.py /mnt/hnsg-backup
+UMask=0077
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=strict
+ProtectHome=true
+ReadWritePaths=/mnt/hnsg-ssd/hnsg-runtime /mnt/hnsg-backup

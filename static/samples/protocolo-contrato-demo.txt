@@ -1,0 +1,9 @@
+# EXEMPLO FICTÍCIO. Não é exportação CAREL nem mapa do HNSG.
+# Endereços inventados apenas para testar parser. Nunca habilitar em CLP físico.
+# Escolher explicitamente base 0. Valores de 32 bits exigem ordem explícita.
+symbol;description;area;address;type;scale;offset;unit;access;word_order;byte_order
+EX_UTA01_TEMP;Temperatura fictícia;holding;100;int16;0.1;0;°C;RO;big;big
+EX_UTA01_SP;Referência fictícia;holding;101;int16;0.1;0;°C;RW;big;big
+EX_UTA01_RH;Umidade fictícia;holding;102;uint16;0.1;0;% UR;RO;big;big
+EX_UTA01_RET;Retorno fictício;coil;10;bool;1;0;;RO;big;big
+EX_GERAL_ALARME;Alarme fictício do controlador;coil;11;bool;1;0;;RO;big;big

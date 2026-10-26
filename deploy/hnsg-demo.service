@@ -1,0 +1,37 @@
+[Unit]
+Description=HNSG Innotech - demonstracao sintetica de 16 equipamentos
+Wants=network-online.target
+After=network-online.target
+RequiresMountsFor=/mnt/innotech-usb
+StartLimitIntervalSec=300
+StartLimitBurst=5
+
+[Service]
+Type=simple
+User=hnsg
+Group=hnsg
+WorkingDirectory=/opt/hnsg
+EnvironmentFile=/etc/hnsg/demo.env
+Environment=PYTHONDONTWRITEBYTECODE=1
+Environment=PYTHONUNBUFFERED=1
+ExecStartPre=/usr/bin/mountpoint -q /mnt/innotech-usb
+ExecStart=/mnt/innotech-usb/hnsg/venv/bin/python -m uvicorn app.main:app --host 127.0.0.1 --port 8016 --workers 1 --proxy-headers --forwarded-allow-ips 127.0.0.1
+Restart=on-failure
+RestartSec=10
+TimeoutStopSec=30
+UMask=0077
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=strict
+ProtectHome=true
+ReadWritePaths=/mnt/innotech-usb/hnsg/runtime
+RestrictSUIDSGID=true
+ProtectKernelTunables=true
+ProtectKernelModules=true
+ProtectControlGroups=true
+MemoryHigh=350M
+MemoryMax=600M
+TasksMax=64
+
+[Install]
+WantedBy=multi-user.target

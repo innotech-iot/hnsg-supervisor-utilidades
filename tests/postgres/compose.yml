@@ -1,0 +1,69 @@
+services:
+  postgres:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_DB: hnsg_pgtest_control
+      POSTGRES_PASSWORD: ${HNSG_PGTEST_ADMIN_PASSWORD:?Use scripts/verify_postgres.py}
+      POSTGRES_INITDB_ARGS: --auth-host=scram-sha-256
+      HNSG_PGTEST_PASSWORD: ${HNSG_PGTEST_PASSWORD:?Use scripts/verify_postgres.py}
+      HNSG_PGTEST_TOKEN: ${HNSG_PGTEST_TOKEN:?Use scripts/verify_postgres.py}
+    tmpfs:
+      - /var/lib/postgresql/data
+    volumes:
+      - type: bind
+        source: ${HNSG_PGTEST_SOURCE}/tests/postgres/init.sh
+        target: /docker-entrypoint-initdb.d/fixture.sh
+        read_only: true
+    healthcheck:
+      test: [CMD-SHELL, pg_isready -U postgres -d hnsg_pgtest_control]
+      interval: 2s
+      timeout: 3s
+      retries: 30
+    networks: [isolated]
+  tests:
+    build:
+      context: ../..
+      dockerfile: ${HNSG_PGTEST_DOCKERFILE:-tests/postgres/Dockerfile}
+      additional_contexts:
+        packagecache: ${HNSG_PGTEST_PACKAGE_CACHE:-.}
+    entrypoint: [/opt/hnsg-test/bin/python, -m, pytest]
+    command: [-q, -p, 'no:cacheprovider', tests, --ignore=tests/test_layout.py, --ignore=tests/test_frontend_centrals.py, --ignore=tests/test_frontend_history.py, --tb=short, --junitxml=/artifacts/pytest-postgres.xml]
+    depends_on:
+      postgres:
+        condition: service_healthy
+    environment:
+      HNSG_PGTEST_ENABLED: '1'
+      HNSG_PGTEST_ADMIN_PASSWORD: ${HNSG_PGTEST_ADMIN_PASSWORD:?Use scripts/verify_postgres.py}
+      HNSG_PGTEST_PASSWORD: ${HNSG_PGTEST_PASSWORD:?Use scripts/verify_postgres.py}
+      HNSG_PGTEST_TOKEN: ${HNSG_PGTEST_TOKEN:?Use scripts/verify_postgres.py}
+      HNSG_MODE: demo
+      HNSG_DATA_DIR: /tmp/hnsg-pgtest/runtime-default
+      DATABASE_URL: ''
+      OLLAMA_ENABLED: 'false'
+      REQUIRE_SSD_MOUNT: 'false'
+      DISABLE_COLLECTOR: 'true'
+    volumes:
+      - type: bind
+        source: ${HNSG_PGTEST_SOURCE}/app
+        target: /workspace/app
+        read_only: true
+      - type: bind
+        source: ${HNSG_PGTEST_SOURCE}/static
+        target: /workspace/static
+        read_only: true
+      - type: bind
+        source: ${HNSG_PGTEST_SOURCE}/tests
+        target: /workspace/tests
+        read_only: true
+      - type: bind
+        source: ${HNSG_PGTEST_SOURCE}/scripts
+        target: /workspace/scripts
+        read_only: true
+      - type: bind
+        source: ${HNSG_PGTEST_ARTIFACTS}
+        target: /artifacts
+    networks: [isolated]
+networks:
+  isolated:
+    internal: true

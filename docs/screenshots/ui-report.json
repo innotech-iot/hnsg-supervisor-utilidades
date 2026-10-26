@@ -1,0 +1,20 @@
+{
+  "mode": "dom-harness",
+  "checks": [
+    "Login e 14 cartões",
+    "Troca de UTA preserva expansão; quatro gráficos",
+    "Pausa e retomada apenas da visualização",
+    "Gráfico ampliado com navegação entre UTAs",
+    "Comando DEMO em duas etapas, destino e confirmação",
+    "Registro de manutenção pela interface",
+    "Importação e ativação de mapa fictício sem escrita",
+    "12 rotas adicionais sem erro de renderização",
+    "Resposta atrasada não sobrescreve a tela atual",
+    "Diagnóstico consultivo na interface",
+    "Layout de 390 px sem transbordamento horizontal"
+  ],
+  "javascript_errors": [],
+  "native_fullscreen_validated": false,
+  "tls_validated": false,
+  "notice": "Harness não valida cookies/navegação HTTP do navegador; testes de API verificam autenticação/CSRF separadamente."
+}

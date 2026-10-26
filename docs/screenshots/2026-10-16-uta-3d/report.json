@@ -1,0 +1,32 @@
+{
+  "checks": [
+    {
+      "theme": "dark",
+      "width": 360
+    },
+    {
+      "theme": "dark",
+      "width": 768
+    },
+    {
+      "theme": "dark",
+      "width": 1440
+    },
+    {
+      "theme": "light",
+      "width": 360
+    },
+    {
+      "theme": "light",
+      "width": 768
+    },
+    {
+      "theme": "light",
+      "width": 1440
+    }
+  ],
+  "javascript_errors": [],
+  "rotation_css": true,
+  "reduced_motion": true,
+  "mode": "demo"
+}

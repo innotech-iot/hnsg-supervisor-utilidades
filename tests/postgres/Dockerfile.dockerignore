@@ -1,0 +1,7 @@
+**
+!requirements.txt
+!requirements-postgres.txt
+!tests/
+!tests/postgres/
+!tests/postgres/Dockerfile
+!tests/postgres/Dockerfile.dockerignore

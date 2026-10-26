@@ -1,0 +1,20 @@
+{
+  "checks": [
+    {
+      "width": 430,
+      "cards": 14,
+      "single_line_titles": true
+    },
+    {
+      "width": 1600,
+      "cards": 14,
+      "single_line_titles": true
+    },
+    {
+      "width": 1920,
+      "cards": 14,
+      "single_line_titles": true
+    }
+  ],
+  "controller_filter": true
+}

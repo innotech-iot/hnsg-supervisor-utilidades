@@ -1,0 +1,80 @@
+{
+  "checks": [
+    {
+      "theme": "dark",
+      "width": 360,
+      "routes": 14
+    },
+    {
+      "theme": "dark",
+      "width": 390,
+      "routes": 14
+    },
+    {
+      "theme": "dark",
+      "width": 768,
+      "routes": 14
+    },
+    {
+      "theme": "dark",
+      "width": 820,
+      "routes": 14
+    },
+    {
+      "theme": "dark",
+      "width": 844,
+      "routes": 14
+    },
+    {
+      "theme": "dark",
+      "width": 1024,
+      "routes": 14
+    },
+    {
+      "theme": "dark",
+      "width": 1440,
+      "routes": 14
+    },
+    {
+      "theme": "light",
+      "width": 360,
+      "routes": 14
+    },
+    {
+      "theme": "light",
+      "width": 390,
+      "routes": 14
+    },
+    {
+      "theme": "light",
+      "width": 768,
+      "routes": 14
+    },
+    {
+      "theme": "light",
+      "width": 820,
+      "routes": 14
+    },
+    {
+      "theme": "light",
+      "width": 844,
+      "routes": 14
+    },
+    {
+      "theme": "light",
+      "width": 1024,
+      "routes": 14
+    },
+    {
+      "theme": "light",
+      "width": 1440,
+      "routes": 14
+    }
+  ],
+  "javascript_errors": [],
+  "mode": "demo",
+  "browser": "Chrome",
+  "limitations": [
+    "Viewport emulado; dispositivos físicos, Safari e teclado virtual não testados."
+  ]
+}

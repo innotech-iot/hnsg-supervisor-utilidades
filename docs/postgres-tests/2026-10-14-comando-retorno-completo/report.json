@@ -1,0 +1,16 @@
+{
+  "timestamp_utc": "2026-10-14T21:30:15.845381+00:00",
+  "context": "desktop-linux",
+  "project": "hnsg-pgtest-e017c8f5cdf6a8e2",
+  "tests": 135,
+  "failures": 0,
+  "errors": 0,
+  "skipped": 0,
+  "compose_exit_code": 0,
+  "cleanup_succeeded": true,
+  "passed": true,
+  "operational_database_used": false,
+  "ports_published": false,
+  "plcs_connected": false,
+  "notice": "Contêiner descartável; não valida ARM64/Raspberry, disco independente ou instalação hospitalar."
+}
