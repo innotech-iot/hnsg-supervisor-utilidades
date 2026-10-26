@@ -47,6 +47,6 @@ def test_own_account_frontend_hides_restricted_accounts():
     node = shutil.which('node')
     if not node:
         pytest.skip('Node indisponível')
-    result = subprocess.run([node,'--experimental-default-type=module',str(Path(__file__).with_name('frontend_account.mjs'))],
+    result = subprocess.run([node,str(Path(__file__).with_name('frontend_account.mjs'))],
                             capture_output=True,text=True,encoding='utf-8')
     assert result.returncode == 0, result.stdout + result.stderr

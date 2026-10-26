@@ -1,7 +1,7 @@
 FROM postgres:16-alpine
 COPY --from=packagecache /packages /packages
 RUN --network=none apk add --no-network --repositories-file /packages/repositories python3 py3-pip nodejs && python3 -m venv /opt/hnsg-test
-RUN node --experimental-default-type=module --eval 'void 0'
+RUN node --input-type=module --eval 'void 0'
 COPY --from=packagecache /wheels /wheels
 COPY requirements.txt requirements-postgres.txt /tmp/requirements/
 RUN --network=none /opt/hnsg-test/bin/python -m pip install --no-index --find-links=/wheels -r /tmp/requirements/requirements-postgres.txt pytest==9.0.2

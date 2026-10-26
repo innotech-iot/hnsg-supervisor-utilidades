@@ -8,7 +8,7 @@ def test_register_selection_units_and_missing_fan_speed():
     binary=shutil.which('node')
     if not binary:
         pytest.skip('Node indisponível')
-    result=subprocess.run([binary,'--experimental-default-type=module','--input-type=module','-e','''
+    result=subprocess.run([binary,'--input-type=module','-e','''
 import assert from 'node:assert/strict';
 import {registers,selectedSeries} from './static/registers.js';
 assert.equal(registers.fan_speed.unit,'%');

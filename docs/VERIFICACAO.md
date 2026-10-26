@@ -2,6 +2,8 @@
 
 ## Diagnóstico do primeiro pipeline GitHub — 26/10/2026
 
+- Segunda execução https://github.com/innotech-iot/hnsg-supervisor-utilidades/actions/runs/40327671906: jobs unit Python 3.11 e 3.13 aprovados. PostgreSQL interrompido no build porque o Node 24.22.1 do Alpine não aceita mais `--experimental-default-type`. Declarado `type: module` em static/package.json e removida a opção experimental dos testes; nenhum npm/build foi adicionado ao aplicativo. Regressores locais de frontend/contas/runner após isso: **20 passed, 1 warning em 15.88 s**; importação direta dos scripts .mjs sem flags e compileall aprovados.
+
 - Logs da execução https://github.com/innotech-iot/hnsg-supervisor-utilidades/actions/runs/40322397631 consultados. Python 3.11: seis falhas JS por `node: bad option: --experimental-default-type=module`, 139 aprovados/nove skips. Setup Node ocorria depois de pytest. Python 3.13 cancelado pela matriz após a falha de 3.11.
 - Job PostgreSQL falhou na sanitização de arquivo criado pelo contêiner como root: PermissionError em pg-test-artifacts/pytest-postgres.xml. Artefato original inspecionado: 145 testes, zero falhas/erros, três skips de frontend por Node ausente. Não é evidência de falha no PostgreSQL operacional.
 - Runner agora define UID/GID reais, descartando variáveis HNSG_PGTEST_ herdadas. Regressão com identidade 1001:1002 e tentativa de sobrescrita por env 0:0 iniciou RED; após correção, **11 passed em 0.34 s**. Dockerfiles de testes passam a incluir Node e verificar a opção necessária; Compose deixa de excluir os testes JS de centrais/histórico. O único grupo excluído no contêiner continua sendo layout de navegador, exercitado no job unit quando disponível.

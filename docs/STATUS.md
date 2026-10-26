@@ -2,6 +2,8 @@
 
 ## Correção da execução GitHub Actions — 26/10/2026
 
+- Jobs unit 3.11/3.13 aprovados na segunda execução. Compatibilidade com Node 24 do contêiner resolvida usando declaração padrão de ES modules e retirando opção experimental dos testes. Sem dependência de npm/build na aplicação. Validação PostgreSQL do commit final acompanhada pelo GitHub Actions.
+
 - Execução inicial 40322397631: seis testes falharam por Node incompatível antes do setup-node; job PostgreSQL não pôde sanitizar JUnit criado como root. Artefato PostgreSQL confirmou 145 testes, zero falhas/erros e três skips por ausência de Node.
 - Workflow prepara Node 22 antes de pytest e mantém as duas versões Python em execução independente. Contêiner de teste usa UID/GID do chamador em Linux e inclui Node; regressões JS antes excluídas também são executadas. Banco descartável, rede isolada e guards preservados.
 - Teste de UID/GID iniciou RED, depois 11 testes do runner aprovados. Suíte local: 142 aprovados, 12 ignorados. Ensaio Docker local impedido pelo DNS do APK antes dos testes; validação efetiva do pipeline será feita no GitHub. Sem alteração da Raspberry.

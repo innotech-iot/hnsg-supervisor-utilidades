@@ -10,7 +10,7 @@ def test_isometric_synoptic_contract():
     if not node:
         pytest.skip('Node indisponível')
     result = subprocess.run(
-        [node, '--experimental-default-type=module', '--input-type=module', '-e', '''
+        [node,  '--input-type=module', '-e', '''
 import assert from 'node:assert/strict';
 import {utaSynoptic} from './static/synoptic.js';
 const html=utaSynoptic();
