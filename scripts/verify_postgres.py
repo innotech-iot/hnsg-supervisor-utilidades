@@ -61,6 +61,10 @@ def run_validation(context,output_dir,package_cache=None):
     credentials=[secrets.token_urlsafe(32) for _ in range(3)]
     env.update(HNSG_PGTEST_PASSWORD=credentials[0],HNSG_PGTEST_ADMIN_PASSWORD=credentials[1],
         HNSG_PGTEST_TOKEN=credentials[2],HNSG_PGTEST_SOURCE=ROOT.as_posix(),HNSG_PGTEST_ARTIFACTS=output.as_posix())
+    # Linux bind mounts retain container ownership. Match the caller so the
+    # host can redact reports; Docker Desktop maps Windows filesystem access.
+    env.update(HNSG_PGTEST_UID=str(getattr(os,'getuid',lambda:0)()),
+               HNSG_PGTEST_GID=str(getattr(os,'getgid',lambda:0)()))
     if package_cache is not None:
         env.update(HNSG_PGTEST_PACKAGE_CACHE=package_cache.as_posix(),
             HNSG_PGTEST_DOCKERFILE='tests/postgres/Dockerfile.offline')

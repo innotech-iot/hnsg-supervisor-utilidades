@@ -1,5 +1,11 @@
 # Matriz da entrega 0.1.0
 
+## Correção da execução GitHub Actions — 26/10/2026
+
+- Execução inicial 40322397631: seis testes falharam por Node incompatível antes do setup-node; job PostgreSQL não pôde sanitizar JUnit criado como root. Artefato PostgreSQL confirmou 145 testes, zero falhas/erros e três skips por ausência de Node.
+- Workflow prepara Node 22 antes de pytest e mantém as duas versões Python em execução independente. Contêiner de teste usa UID/GID do chamador em Linux e inclui Node; regressões JS antes excluídas também são executadas. Banco descartável, rede isolada e guards preservados.
+- Teste de UID/GID iniciou RED, depois 11 testes do runner aprovados. Suíte local: 142 aprovados, 12 ignorados. Ensaio Docker local impedido pelo DNS do APK antes dos testes; validação efetiva do pipeline será feita no GitHub. Sem alteração da Raspberry.
+
 ## Preparação do repositório GitHub — 26/10/2026
 
 - Destino informado pelo usuário: `innotech-iot/hnsg-supervisor-utilidades`, branch `main`. Histórico local iniciado a partir da versão atual, incluindo simulação completa, serviço Raspberry e conta/senha.

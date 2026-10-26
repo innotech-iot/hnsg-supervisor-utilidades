@@ -4,6 +4,7 @@ jobs:
   unit:
     runs-on: ubuntu-latest
     strategy:
+      fail-fast: false
       matrix:
         python: ['3.11', '3.13']
     steps:
@@ -11,12 +12,12 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: ${{ matrix.python }}
-      - run: python -m pip install -r requirements-dev.txt
-      - run: python -m pytest -q
-      - run: python -m compileall -q app scripts
       - uses: actions/setup-node@v4
         with:
           node-version: '22'
+      - run: python -m pip install -r requirements-dev.txt
+      - run: python -m pytest -q
+      - run: python -m compileall -q app scripts
       - run: for f in static/*.js; do node --input-type=module --check < "$f"; done
   postgres:
     runs-on: ubuntu-latest

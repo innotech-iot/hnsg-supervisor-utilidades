@@ -22,13 +22,14 @@ services:
       retries: 30
     networks: [isolated]
   tests:
+    user: "${HNSG_PGTEST_UID:-0}:${HNSG_PGTEST_GID:-0}"
     build:
       context: ../..
       dockerfile: ${HNSG_PGTEST_DOCKERFILE:-tests/postgres/Dockerfile}
       additional_contexts:
         packagecache: ${HNSG_PGTEST_PACKAGE_CACHE:-.}
     entrypoint: [/opt/hnsg-test/bin/python, -m, pytest]
-    command: [-q, -p, 'no:cacheprovider', tests, --ignore=tests/test_layout.py, --ignore=tests/test_frontend_centrals.py, --ignore=tests/test_frontend_history.py, --tb=short, --junitxml=/artifacts/pytest-postgres.xml]
+    command: [-q, -p, 'no:cacheprovider', tests, --ignore=tests/test_layout.py, --tb=short, --junitxml=/artifacts/pytest-postgres.xml]
     depends_on:
       postgres:
         condition: service_healthy

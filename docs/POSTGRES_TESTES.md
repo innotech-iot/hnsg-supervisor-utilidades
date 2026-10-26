@@ -47,6 +47,11 @@ python scripts/verify_postgres.py --context desktop-linux --package-cache "$env:
 
 `--package-cache` seleciona `Dockerfile.offline`. O cache deve conter:
 
+Desde a correção de CI de 26/10/2026, os APKs também devem incluir `nodejs` e
+suas dependências. Os Dockerfiles verificam o suporte à opção de módulos usada
+nas regressões JS. O runner Linux fornece seu UID/GID ao serviço de testes para
+que os relatórios do bind mount possam ser sanitizados pelo mesmo usuário.
+
 ```text
 packages/repositories                 caminhos locais /packages/main e /packages/community, com LF
 packages/main/x86_64/APKINDEX.tar.gz   índice oficial assinado e APKs necessários

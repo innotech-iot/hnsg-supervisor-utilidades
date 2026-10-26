@@ -31,6 +31,8 @@ def test_postgres_runner_cleans_own_project_and_sanitizes_artifacts(tmp_path,mon
         if 'inspect' in command:return SimpleNamespace(returncode=0,stdout='npipe:////./pipe/dockerDesktopLinuxEngine\n',stderr='')
         if 'up' in command:
             env=kwargs['env'];password.append(env['HNSG_PGTEST_PASSWORD'])
+            assert env['HNSG_PGTEST_UID']=='1001'
+            assert env['HNSG_PGTEST_GID']=='1002'
             assert env['BUILDX_BUILDER']=='desktop-linux'
             assert env['COMPOSE_BAKE']=='false'
             assert 'BUILDKIT_HOST' not in env and 'BUILDX_CONFIG' not in env
@@ -46,6 +48,10 @@ def test_postgres_runner_cleans_own_project_and_sanitizes_artifacts(tmp_path,mon
     monkeypatch.setenv('BUILDKIT_HOST','tcp://remote-builder.invalid:1234')
     monkeypatch.setenv('BUILDX_CONFIG','fixture-remote-config')
     monkeypatch.setenv('COMPOSE_BAKE','true')
+    monkeypatch.setenv('HNSG_PGTEST_UID','0')
+    monkeypatch.setenv('HNSG_PGTEST_GID','0')
+    monkeypatch.setattr(runner.os,'getuid',lambda:1001,raising=False)
+    monkeypatch.setattr(runner.os,'getgid',lambda:1002,raising=False)
     monkeypatch.setattr(runner.shutil,'which',lambda _: 'fixture-docker')
     monkeypatch.setattr(runner.subprocess,'run',run)
     output=tmp_path/'artifacts'

@@ -1,5 +1,12 @@
 # Verificação da versão 0.1.0
 
+## Diagnóstico do primeiro pipeline GitHub — 26/10/2026
+
+- Logs da execução https://github.com/innotech-iot/hnsg-supervisor-utilidades/actions/runs/40322397631 consultados. Python 3.11: seis falhas JS por `node: bad option: --experimental-default-type=module`, 139 aprovados/nove skips. Setup Node ocorria depois de pytest. Python 3.13 cancelado pela matriz após a falha de 3.11.
+- Job PostgreSQL falhou na sanitização de arquivo criado pelo contêiner como root: PermissionError em pg-test-artifacts/pytest-postgres.xml. Artefato original inspecionado: 145 testes, zero falhas/erros, três skips de frontend por Node ausente. Não é evidência de falha no PostgreSQL operacional.
+- Runner agora define UID/GID reais, descartando variáveis HNSG_PGTEST_ herdadas. Regressão com identidade 1001:1002 e tentativa de sobrescrita por env 0:0 iniciou RED; após correção, **11 passed em 0.34 s**. Dockerfiles de testes passam a incluir Node e verificar a opção necessária; Compose deixa de excluir os testes JS de centrais/histórico. O único grupo excluído no contêiner continua sendo layout de navegador, exercitado no job unit quando disponível.
+- Suíte local após correção do runner: **142 passed, 12 skipped, 1 warning em 82.30 s**. Ensaio Docker local `runtime/ci-postgres-20261026` falhou antes dos testes porque o daemon não resolve dl-cdn.alpinelinux.org; recursos descartáveis removidos, nenhum banco operacional usado. Não foi alterada rede para contornar esse erro.
+
 ## Preparação para GitHub — 26/10/2026
 
 - Suíte local completa: **142 passed, 12 skipped, 1 warning em 61.15 s**. Skips opcionais existentes (três layouts/nove PostgreSQL); aviso Starlette/httpx. Compileall app/scripts e sintaxe dos dez módulos JS aprovados.
